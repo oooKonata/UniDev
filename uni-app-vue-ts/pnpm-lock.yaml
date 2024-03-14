@@ -44,6 +44,9 @@ dependencies:
   '@dcloudio/uni-quickapp-webview':
     specifier: 3.0.0-3081220230817001
     version: 3.0.0-3081220230817001(postcss@8.4.35)(vue@3.2.47)
+  '@dcloudio/uni-ui':
+    specifier: ^1.5.2
+    version: 1.5.2
   sass:
     specifier: ^1.72.0
     version: 1.72.0
@@ -73,6 +76,9 @@ devDependencies:
   '@uni-helper/uni-app-types':
     specifier: ^0.5.12
     version: 0.5.12(typescript@4.9.5)
+  '@uni-helper/uni-ui-types':
+    specifier: ^0.5.12
+    version: 0.5.12(@uni-helper/uni-app-types@0.5.12)(typescript@4.9.5)
   '@vue/runtime-core':
     specifier: ^3.2.45
     version: 3.4.21
@@ -1808,6 +1814,10 @@ packages:
       - vue
     dev: false
 
+  /@dcloudio/uni-ui@1.5.2:
+    resolution: {integrity: sha512-/MO31TELyHcKt3nS5bo1t8lQmLSnP9EKlHcShjqM27gL0QeYtoc9UekOITRbA9zi8rnlII3Aw91DHtny3IodFg==}
+    dev: false
+
   /@dcloudio/vite-plugin-uni@3.0.0-3081220230817001(postcss@8.4.35)(vite@4.1.4)(vue@3.2.47):
     resolution: {integrity: sha512-dLeqqyrNNUBTZfI0ppPk4YoD+DBI0gJLeTjpN6bK5i3nFKkju9g2K6IWl62YMObjTiXwQF8qAEDb+fyWoe4Ksw==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -3038,6 +3048,22 @@ packages:
       '@dcloudio/types': 3.4.8
       typescript: 4.9.5
       vue3: /vue@3.4.21(typescript@4.9.5)
+    dev: true
+
+  /@uni-helper/uni-ui-types@0.5.12(@uni-helper/uni-app-types@0.5.12)(typescript@4.9.5):
+    resolution: {integrity: sha512-rqmL35V8IXEYfNx7KIx6xFitzcyAxiv4RCErKN0R4W8nJc3UWQY6J2k3wR8JfV1smJAU123e6PnJxFGj8bfJhw==}
+    engines: {node: '>=14.18'}
+    peerDependencies:
+      '@uni-helper/uni-app-types': ^0.5.1
+    peerDependenciesMeta:
+      '@uni-helper/uni-app-types':
+        optional: true
+    dependencies:
+      '@dcloudio/types': 3.4.8
+      '@uni-helper/uni-app-types': 0.5.12(typescript@4.9.5)
+      vue3: /vue@3.4.21(typescript@4.9.5)
+    transitivePeerDependencies:
+      - typescript
     dev: true
 
   /@vitejs/plugin-legacy@4.1.1(terser@5.29.1)(vite@4.1.4):
