@@ -19,6 +19,7 @@
     {
       "path": "pages/user/user",
       "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "我的"
       }
     }
@@ -26,6 +27,7 @@
   "tabBar": {
     "selectedColor": "#189269",
     "borderStyle": "white",
+    "backgroundColor": "#FFFFFF",
     "list": [
       {
         "pagePath": "pages/index/index",
