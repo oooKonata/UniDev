@@ -1,5 +1,6 @@
 {
   "name": "",
+  // 应用标识，由 DCloud 云端分配
   "appid": "",
   "description": "",
   "versionName": "1.0.0",
