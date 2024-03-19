@@ -1,6 +1,7 @@
 <template>
   <view class="content">
     <CustomNavBar title="首页" type="position" />
+    <text>1111</text>
   </view>
 </template>
 
