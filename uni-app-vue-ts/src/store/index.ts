@@ -8,3 +8,6 @@ pinia.use(persist)
 
 // 默认到处，给 main.ts 使用
 export default pinia
+
+// 模块统一导出
+export * from './modules/member'

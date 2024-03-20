@@ -13,14 +13,12 @@
     {
       "path": "pages/index/index",
       "style": {
-        "navigationStyle": "custom",
         "navigationBarTitleText": "首页"
       }
     },
     {
       "path": "pages/user/user",
       "style": {
-        "navigationStyle": "custom",
         "navigationBarTitleText": "我的"
       }
     }

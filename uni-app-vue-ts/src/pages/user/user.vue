@@ -1,12 +1,8 @@
 <template>
-  <view class="content">
-    <CustomNavBar title="我的" type="back" />
-  </view>
+  <view class="content"> </view>
 </template>
 
-<script setup lang="ts">
-  import CustomNavBar from '@/components/CustomNavBar.vue'
-</script>
+<script setup lang="ts"></script>
 
 <style scoped lang="scss">
   .content {
