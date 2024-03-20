@@ -49,8 +49,8 @@ uni.addInterceptor('request', httpInterceptor)
 uni.addInterceptor('uploadFile', httpInterceptor)
 
 /* 
-  封装 http 请求函数，返回 Promise 响应
-    1、返回 Promise 对象，用于处理返回值类型（响应体）
+  封装 http 请求函数
+    1、返回 Promise 对象，用于处理返回值类型
     2、响应成功 resolve
       1、提取数据
       2、添加泛型
@@ -74,8 +74,34 @@ export const http = <T>(options: UniApp.RequestOptions) => {
       ...options,
       // 响应成功
       success(res) {
-        // 2.1、提取数据，简化数据
-        resolve(res.data as Data<T>)
+        // 状态码为2xx，获取数据成功
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          // 2.1、提取数据
+          resolve(res.data as Data<T>)
+        } else if (res.statusCode === 401) {
+          // 3.1、401错误，-> 清理用户数据，跳转至登录页，
+          const memberStore = useMemberStore()
+          memberStore.clearProfile()
+          uni.navigateTo({ url: '/pages/login/login' })
+          // 标记为失败
+          reject(res)
+        } else {
+          // 3.2、通用错误，-> 根据后端错误提示轻提示
+          uni.showToast({
+            icon: 'none',
+            title: (res.data as Data<T>).msg || '请求错误',
+          })
+          // 标记为失败
+          reject(res)
+        }
+      },
+      // 响应失败
+      fail(err) {
+        uni.showToast({
+          icon: 'none',
+          title: '网络错误，换个网络试试',
+        })
+        reject(err)
       },
     })
   })
