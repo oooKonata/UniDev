@@ -12,4 +12,5 @@ onHide(() => {
 </script>
 <style>
 @import '@/styles/base.scss';
+@import '@/styles/fonts.scss';
 </style>
