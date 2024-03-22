@@ -2,6 +2,8 @@
   <view class="viewport">
     <!-- 自定义导航栏 -->
     <CustomNavBar />
+    <!-- 轮播图 -->
+    <XtxSwiper />
   </view>
 </template>
 
