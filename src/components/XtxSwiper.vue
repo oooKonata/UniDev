@@ -2,55 +2,26 @@
   <view class="carousel">
     <swiper
       :circular="true"
-      :autoplay="false"
+      :autoplay="true"
       :interval="3000"
       @change="onchange"
+      class="swiper"
     >
-      <swiper-item>
+      <swiper-item v-for="item in list" :key="item.id">
         <navigator
           url="/pages/index/index"
           hover-class="none"
           class="navigator"
         >
-          <image
-            src="https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/slider_1.jpg"
-            mode="aspectFill"
-            class="image"
-          />
-        </navigator>
-      </swiper-item>
-      <swiper-item>
-        <navigator
-          url="/pages/index/index"
-          hover-class="none"
-          class="navigator"
-        >
-          <image
-            src="https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/slider_2.jpg"
-            mode="aspectFill"
-            class="image"
-          />
-        </navigator>
-      </swiper-item>
-      <swiper-item>
-        <navigator
-          url="/pages/index/index"
-          hover-class="none"
-          class="navigator"
-        >
-          <image
-            src="https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/slider_3.jpg"
-            mode="aspectFill"
-            class="image"
-          />
+          <image :src="item.imgUrl" mode="aspectFill" class="image" />
         </navigator>
       </swiper-item>
     </swiper>
     <!-- 轮播指示器 -->
     <view class="indicator">
       <text
-        v-for="(item, index) in 3"
-        :key="item"
+        v-for="(item, index) in list"
+        :key="item.id"
         class="dot"
         :class="{ active: index === activeIndex }"
       ></text>
@@ -59,15 +30,19 @@
 </template>
 
 <script setup lang="ts">
+import type { BannerItem } from '@/types/home'
 import { ref } from 'vue'
 
 // banner索引
 const activeIndex = ref(0)
 // 轮播索引
 const onchange: UniHelper.SwiperOnChange = (e) => {
-  // console.log(e.detail.current)
-  activeIndex.value = e.detail.current
+  activeIndex.value = e.detail!.current
 }
+// 定义props接收list
+const props = defineProps<{
+  list: BannerItem[]
+}>()
 </script>
 
 <style scoped lang="scss">
@@ -76,7 +51,7 @@ const onchange: UniHelper.SwiperOnChange = (e) => {
   height: 280rpx;
   position: relative;
   overflow: hidden;
-  swiper {
+  .swiper {
     height: 100%;
   }
   .indicator {
@@ -98,7 +73,7 @@ const onchange: UniHelper.SwiperOnChange = (e) => {
       background-color: #fff;
     }
   }
-  navigator {
+  .navigator {
     height: 100%;
     padding: 0 16rpx;
   }
