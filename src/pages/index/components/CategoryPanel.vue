@@ -4,19 +4,22 @@
       class="category-item"
       url="/pages/index/index"
       hover-class="none"
-      v-for="item in 10"
-      :key="item"
+      v-for="item in list"
+      :key="item.id"
     >
-      <image
-        class="icon"
-        src="https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/images/nav_icon_1.png"
-      />
-      <text class="text">居家</text>
+      <image class="icon" :src="item.icon" />
+      <text class="text">{{ item.name }}</text>
     </navigator>
   </view>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { CategoryItem } from '@/types/home'
+
+defineProps<{
+  list: CategoryItem[]
+}>()
+</script>
 
 <style scoped lang="scss">
 .category {
