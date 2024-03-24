@@ -47,8 +47,8 @@ const props = defineProps<{
 
 <style scoped lang="scss">
 .carousel {
-  margin-top: 16rpx;
-  height: 280rpx;
+  padding-top: 16rpx;
+  height: 296rpx;
   position: relative;
   overflow: hidden;
   .swiper {
