@@ -9,14 +9,18 @@
     @scrolltolower="onScrolltolower"
     scroll-y
   >
-    <!-- 轮播图 -->
-    <XtxSwiper :list="bannerList" />
-    <!-- 分类面板 -->
-    <CategoryPanel :list="categoryList" />
-    <!-- 热门推荐 -->
-    <HotPanel :list="hotList" />
-    <!-- 猜你喜欢 -->
-    <XtxGuess ref="guessRef" />
+    <!-- 骨架屏 -->
+    <PageSkeleton v-if="isLoading" />
+    <template v-else>
+      <!-- 轮播图 -->
+      <XtxSwiper :list="bannerList" />
+      <!-- 分类面板 -->
+      <CategoryPanel :list="categoryList" />
+      <!-- 热门推荐 -->
+      <HotPanel :list="hotList" />
+      <!-- 猜你喜欢 -->
+      <XtxGuess ref="guessRef" />
+    </template>
   </scroll-view>
 </template>
 
@@ -26,6 +30,7 @@ import XtxSwiper from '@/components/XtxSwiper.vue'
 import CategoryPanel from './components/CategoryPanel.vue'
 import HotPanel from './components/HotPanel.vue'
 import XtxGuess from '@/components/XtxGuess.vue'
+import PageSkeleton from './components/PageSkeleton.vue'
 import { getHomeBannerAPI, getHomeCategoryAPI, getHomeHotAPI } from '@/api/home'
 import type { BannerItem, CategoryItem, HotItem } from '@/types/home'
 import { onLoad } from '@dcloudio/uni-app'
@@ -54,9 +59,21 @@ const getHomeHotData = async () => {
 
 // 获取猜你喜欢组件实例
 const guessRef = ref<InstanceType<typeof XtxGuess>>()
+
+// 加载中标记
+const isLoading = ref(false)
+
 // 页面加载完成后执行
-onLoad(() => {
-  getHomeBannerData(), getHomeCategoryData(), getHomeHotData()
+onLoad(async () => {
+  // 显示骨架屏
+  isLoading.value = true
+  // 加载
+  await Promise.all([
+    getHomeBannerData(),
+    getHomeCategoryData(),
+    getHomeHotData(),
+  ])
+  isLoading.value = false
 })
 
 // 滚动触底
