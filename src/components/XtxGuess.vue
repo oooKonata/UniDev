@@ -23,7 +23,10 @@
       </view>
     </navigator>
   </view>
-  <view class="loading-text">正在加载...</view>
+  <!-- 三元运算符条件渲染 -->
+  <view class="loading-text">{{
+    finishFlag ? '没有更多数据～' : '正在加载...'
+  }}</view>
 </template>
 
 <script setup lang="ts">
@@ -38,18 +41,32 @@ import { onMounted } from 'vue'
     - Required：可选参数强制必填 Required<PageParams>
   */
 const pageParams: Required<PageParams> = {
-  page: 1,
+  page: 30,
   pageSize: 10,
 }
+// 分页结束标记
+const finishFlag = ref(false)
 // 获取猜你喜欢数据
 const guessList = ref<GuessItem[]>([])
 const getHomeGuessData = async () => {
+  // 分页结束标记为真，则退出分页数据加载，并给用户侧提示
+  if (finishFlag.value === true) {
+    return uni.showToast({
+      icon: 'none',
+      title: '没有更多数据～',
+    })
+  }
   const res = await getHomeGuessAPI(pageParams)
   // guessData.value = res.result.items
   // 数组追加，数组追加数组会嵌套，被追加的数组需展开
   guessList.value.push(...res.result.items)
-  // 页码累加
-  pageParams.page++
+  // 分页条件：判断当前页码是否超过页码总数
+  if (pageParams.page < res.result.pages) {
+    // 页码累加
+    pageParams.page++
+  } else {
+    finishFlag.value = true
+  }
 }
 // 组件挂载完毕调用 homeGuessLikeData，组件在多个地方使用时方便
 onMounted(() => {
@@ -96,7 +113,7 @@ defineExpose({ getHomeGuessData })
     }
     .name {
       font-size: 26rpx;
-      margin-top: 16rpx;
+      padding-top: 16rpx;
       /* 块容器中的内容限制为指定的行数 */
       display: -webkit-box;
       -webkit-box-orient: vertical;
