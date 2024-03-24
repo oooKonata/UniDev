@@ -1,7 +1,14 @@
 <template>
   <!-- 自定义导航栏 -->
   <CustomNavBar />
-  <scroll-view class="srcoll-view" @scrolltolower="onScrolltolower" scroll-y>
+  <scroll-view
+    class="srcoll-view"
+    refresher-enabled
+    @refresherrefresh="onRefresherrefresh"
+    :refresher-triggered="isTriggered"
+    @scrolltolower="onScrolltolower"
+    scroll-y
+  >
     <!-- 轮播图 -->
     <XtxSwiper :list="bannerList" />
     <!-- 分类面板 -->
@@ -55,6 +62,30 @@ onLoad(() => {
 // 滚动触底
 const onScrolltolower = () => {
   guessRef.value?.getHomeGuessData()
+}
+
+// 当前下拉状态
+const isTriggered = ref(false)
+// 自定义刷新被触发，重新加载数据
+const onRefresherrefresh = async () => {
+  // 开始动画
+  isTriggered.value = true
+  // 加载数据之前，重置“猜你喜欢”数据
+  guessRef.value?.resetData()
+  // 加载数据：依次加载完，全部加载时间较长
+  // await getHomeBannerData()
+  // await getHomeCategoryData()
+  // await getHomeHotData()
+  // 最优解：promise.all：同时加载，全部加载完再继续执行下文，加载时间较短
+  await Promise.all([
+    getHomeBannerData(),
+    getHomeCategoryData(),
+    getHomeHotData(),
+    // 加载“猜你喜欢”数据
+    guessRef.value?.getHomeGuessData(),
+  ])
+  // 数据加载完毕，关闭动画
+  isTriggered.value = false
 }
 </script>
 

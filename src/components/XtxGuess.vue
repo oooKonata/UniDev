@@ -36,12 +36,9 @@ import type { PageParams } from '@/types/global'
 import { ref } from 'vue'
 import { onMounted } from 'vue'
 
-/* 
-    - 分页参数
-    - Required：可选参数强制必填 Required<PageParams>
-  */
+// 分页参数，Required：可选参数强制必填 Required<PageParams>
 const pageParams: Required<PageParams> = {
-  page: 30,
+  page: 1,
   pageSize: 10,
 }
 // 分页结束标记
@@ -68,12 +65,21 @@ const getHomeGuessData = async () => {
     finishFlag.value = true
   }
 }
+// 重置数据
+const resetData = () => {
+  // 当前页码初始化为1
+  pageParams.page = 1
+  // 重置列表
+  guessList.value = []
+  finishFlag.value = false
+}
+
 // 组件挂载完毕调用 homeGuessLikeData，组件在多个地方使用时方便
 onMounted(() => {
   getHomeGuessData()
 })
 // 暴露方法
-defineExpose({ getHomeGuessData })
+defineExpose({ resetData, getHomeGuessData })
 </script>
 
 <style scoped lang="scss">
