@@ -57,17 +57,14 @@ const getHomeHotData = async () => {
   hotList.value = res.result
 }
 
-// 获取猜你喜欢组件实例
-const guessRef = ref<InstanceType<typeof XtxGuess>>()
-
-// 加载中标记
-const isLoading = ref(false)
+// 加载中标记，标记为 true 时加载骨架屏
+const isLoading = ref(true)
 
 // 页面加载完成后执行
 onLoad(async () => {
   // 显示骨架屏
   isLoading.value = true
-  // 加载
+  // 加载首页数据
   await Promise.all([
     getHomeBannerData(),
     getHomeCategoryData(),
@@ -75,6 +72,9 @@ onLoad(async () => {
   ])
   isLoading.value = false
 })
+
+// 获取猜你喜欢组件实例
+const guessRef = ref<InstanceType<typeof XtxGuess>>()
 
 // 滚动触底
 const onScrolltolower = () => {

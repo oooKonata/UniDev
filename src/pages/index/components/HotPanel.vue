@@ -1,17 +1,22 @@
 <template>
   <!-- 热门推荐 -->
   <view class="panel hot">
-    <view class="item" v-for="item in list" :key="item.id">
+    <navigator
+      class="item"
+      url="/pages/hot/hot"
+      v-for="item in list"
+      :key="item.id"
+    >
       <view class="title">
         <text class="title-text">{{ item.title }}</text>
         <text class="title-desc">{{ item.alt }}</text>
       </view>
       <view class="cards">
-        <navigator url="/pages/hot/hot" v-for="src in item.pictures" :key="src">
+        <view v-for="src in item.pictures" :key="src">
           <image class="image" :src="src" mode="aspectFit" />
-        </navigator>
+        </view>
       </view>
-    </view>
+    </navigator>
   </view>
 </template>
 
