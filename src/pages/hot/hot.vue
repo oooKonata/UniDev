@@ -19,14 +19,14 @@
         <navigator
           class="navigator"
           url="/pages/"
-          v-for="goods in 10"
+          v-for="goods in 30"
           :key="goods"
         >
           <image
             class="image"
             src="https://yanxuan-item.nosdn.127.net/5e7864647286c7447eeee7f0025f8c11.png"
           />
-          <view class="name ellipsis">不含酒精，使用安心爽肤清洁湿巾</view>
+          <view class="name">不含酒精，使用安心爽肤清洁湿巾</view>
           <view class="price">
             <text class="small">¥</text>
             <text class="price">29.90</text>
@@ -38,7 +38,26 @@
   </view>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+// 推荐详情页的标题的url
+const urlMap = [
+  { type: '1', title: '特惠推荐', url: '/hot/preference' },
+  { type: '2', title: '爆款推荐', url: '/hot/inVogue' },
+  { type: '3', title: '一站全买', url: '/hot/oneStep' },
+  { type: '4', title: '新鲜好物', url: '/hot/new' },
+]
+
+//接收路由传参
+const query = defineProps<{
+  type: string
+}>()
+console.log(query)
+
+// 根据传参，动态设置标题
+const currentUrlMap = urlMap.find((value) => value.type === query.type)
+console.log(currentUrlMap)
+uni.setNavigationBarTitle({ title: currentUrlMap!.title })
+</script>
 
 <style lang="scss">
 page {
@@ -48,14 +67,15 @@ page {
 .viewport {
   display: flex;
   flex-direction: column;
+  align-items: center;
   height: 100%;
   position: relative;
-  padding: 177rpx 0 0;
   .cover {
+    z-index: 8;
     padding: 16rpx 16rpx 0;
     width: 100%;
     height: 225rpx;
-    position: absolute;
+    position: fixed;
     box-sizing: border-box;
     top: 0;
     .image {
@@ -69,11 +89,12 @@ page {
     align-items: center;
     background-color: #fff;
     height: 96rpx;
-    margin: 0 48rpx;
+    width: 654rpx;
     border-radius: 16rpx;
     font-size: 28rpx;
     color: #333;
-    position: relative;
+    position: fixed;
+    margin-top: 178rpx;
     margin-bottom: 16rpx;
     .text {
       position: relative;
@@ -94,6 +115,7 @@ page {
     }
   }
   .scroll-view {
+    margin-top: 290rpx;
     height: 0rpx;
     flex: 1;
     margin-bottom: 64rpx;

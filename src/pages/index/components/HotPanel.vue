@@ -3,7 +3,7 @@
   <view class="panel hot">
     <navigator
       class="item"
-      url="/pages/hot/hot"
+      :url="`/pages/hot/hot?type=${item.type}`"
       v-for="item in list"
       :key="item.id"
     >

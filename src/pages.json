@@ -10,7 +10,7 @@
       // "^Xtx(.*)": "@/components/Xtx$1.vue"
     }
   },
-  "entryPagePath": "pages/hot/hot",
+  // "entryPagePath": "pages/hot/hot",
   "pages": [
     {
       "path": "pages/index/index",
