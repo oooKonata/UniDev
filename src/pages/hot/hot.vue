@@ -2,34 +2,39 @@
   <view class="viewport">
     <!-- 推荐封面图 -->
     <view class="cover">
-      <image
-        class="image"
-        src="http://yjy-xiaotuxian-dev.oss-cn-beijing.aliyuncs.com/picture/2021-05-20/84abb5b1-8344-49ae-afc1-9cb932f3d593.jpg"
-        mode="aspectFill"
-      />
+      <image class="image" :src="bannerPicture" mode="aspectFill" />
     </view>
     <!-- 推荐选项 -->
     <view class="tabs">
-      <text class="text active">抢先尝鲜</text>
-      <text class="text">新品预告</text>
+      <text
+        class="text"
+        v-for="(item, index) in subTypes"
+        :key="item.id"
+        :class="{ active: index === activeIndex }"
+        @tap="activeIndex = index"
+        >{{ item.title }}
+      </text>
     </view>
     <!-- 推荐列表 -->
-    <scroll-view scroll-y class="scroll-view">
+    <scroll-view
+      scroll-y
+      class="scroll-view"
+      v-for="(item, index) in subTypes"
+      :key="item.id"
+      v-show="activeIndex === index"
+    >
       <view class="goods">
         <navigator
           class="navigator"
           url="/pages/"
-          v-for="goods in 30"
-          :key="goods"
+          v-for="goods in item.goodsItems.items"
+          :key="goods.id"
         >
-          <image
-            class="image"
-            src="https://yanxuan-item.nosdn.127.net/5e7864647286c7447eeee7f0025f8c11.png"
-          />
-          <view class="name">不含酒精，使用安心爽肤清洁湿巾</view>
+          <image class="image" :src="goods.picture" />
+          <view class="name">{{ goods.name }}</view>
           <view class="price">
             <text class="small">¥</text>
-            <text class="price">29.90</text>
+            <text class="price">{{ goods.price }}</text>
           </view>
         </navigator>
       </view>
@@ -39,11 +44,15 @@
 </template>
 
 <script setup lang="ts">
+import { getHotRecommendAPI } from '@/api/hot'
+import type { SubTypeItem } from '@/types/hot'
+import { onLoad } from '@dcloudio/uni-app'
+import { ref } from 'vue'
 // 推荐详情页的标题的url
 const urlMap = [
   { type: '1', title: '特惠推荐', url: '/hot/preference' },
   { type: '2', title: '爆款推荐', url: '/hot/inVogue' },
-  { type: '3', title: '一站全买', url: '/hot/oneStep' },
+  { type: '3', title: '一站全买', url: '/hot/oneStop' },
   { type: '4', title: '新鲜好物', url: '/hot/new' },
 ]
 
@@ -51,12 +60,30 @@ const urlMap = [
 const query = defineProps<{
   type: string
 }>()
-console.log(query)
+
+// 推荐封面图
+const bannerPicture = ref('')
+// 推荐选项tabs
+const subTypes = ref<SubTypeItem[]>([])
+// tab下标高亮
+const activeIndex = ref(0)
 
 // 根据传参，动态设置标题
 const currentUrlMap = urlMap.find((value) => value.type === query.type)
-console.log(currentUrlMap)
 uni.setNavigationBarTitle({ title: currentUrlMap!.title })
+
+// 获取热门推荐数据
+const getHotRecommendData = async () => {
+  const res = await getHotRecommendAPI(currentUrlMap!.url)
+  console.log('推荐数据', res)
+  bannerPicture.value = res.result.bannerPicture
+  subTypes.value = res.result.subTypes
+}
+
+// 页面加载
+onLoad(() => {
+  getHotRecommendData()
+})
 </script>
 
 <style lang="scss">
