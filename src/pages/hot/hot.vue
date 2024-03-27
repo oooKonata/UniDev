@@ -22,6 +22,7 @@
       v-for="(item, index) in subTypes"
       :key="item.id"
       v-show="activeIndex === index"
+      @scrolltolower="onScrolltolower"
     >
       <view class="goods">
         <navigator
@@ -63,7 +64,7 @@ const query = defineProps<{
 
 // 推荐封面图
 const bannerPicture = ref('')
-// 推荐选项tabs
+// 推荐选项
 const subTypes = ref<SubTypeItem[]>([])
 // tab下标高亮
 const activeIndex = ref(0)
@@ -75,7 +76,6 @@ uni.setNavigationBarTitle({ title: currentUrlMap!.title })
 // 获取热门推荐数据
 const getHotRecommendData = async () => {
   const res = await getHotRecommendAPI(currentUrlMap!.url)
-  console.log('推荐数据', res)
   bannerPicture.value = res.result.bannerPicture
   subTypes.value = res.result.subTypes
 }
@@ -84,6 +84,24 @@ const getHotRecommendData = async () => {
 onLoad(() => {
   getHotRecommendData()
 })
+
+// 滚动触底
+const onScrolltolower = async () => {
+  // 获取当前tab选项
+  const currentSubTypes = subTypes.value[activeIndex.value]
+  // 当前页码累加
+  currentSubTypes.goodsItems.page++
+  // 调用API传参
+  const res = await getHotRecommendAPI(currentUrlMap!.url, {
+    subType: currentSubTypes.id,
+    page: currentSubTypes.goodsItems.page,
+    pageSize: currentSubTypes.goodsItems.pageSize,
+  })
+  // 数组追加，新获取到的res的数组是刷新新增的一页，依次追加到当前tab的首次加载的数组上
+  currentSubTypes.goodsItems.items.push(
+    ...res.result.subTypes[activeIndex.value].goodsItems.items,
+  )
+}
 </script>
 
 <style lang="scss">
@@ -145,7 +163,6 @@ page {
     margin-top: 290rpx;
     height: 0rpx;
     flex: 1;
-    margin-bottom: 64rpx;
     .goods {
       display: flex;
       flex-wrap: wrap;
@@ -188,7 +205,7 @@ page {
     .loading-text {
       text-align: center;
       font-size: 26rpx;
-      padding: 16rpx 0 32rpx;
+      padding: 16rpx 0 100rpx;
       color: #999;
     }
   }
