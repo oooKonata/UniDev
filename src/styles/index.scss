@@ -1,0 +1,23 @@
+page,
+.page {
+  background-color: $n-bgColor;
+  color: $n-80;
+  display: inline-block;
+  width: 750rpx;
+  height: 100%;
+}
+
+.page {
+  min-height: 100%;
+  height: auto;
+}
+
+text,
+view {
+  word-break: break-all;
+  box-sizing: border-box;
+}
+
+image {
+  vertical-align: middle;
+}

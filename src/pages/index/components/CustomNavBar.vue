@@ -2,7 +2,7 @@
   <view class="navbar" :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
     <!-- logo -->
     <view class="logo" :style="{ height: navHeight + 'px' }">
-      <image class="logo-image" src="@/static/images/logo.png" />
+      <image class="logo-image" src="@/static/icons/logo.png" />
       <text class="logo-text">新鲜 · 亲民 · 快捷</text>
     </view>
     <!-- 搜索 -->
@@ -17,15 +17,15 @@
 // 获取安全边距
 const { safeAreaInsets } = uni.getSystemInfoSync()
 // 获取小程序胶囊菜单位置信息：上边距 和 胶囊高度
-const { top, height } = uni.getMenuButtonBoundingClientRect()
+// const { top, height } = uni.getMenuButtonBoundingClientRect()
 // 计算导航栏高度，让胶囊菜单垂直居中导航栏
-const navHeight = (top - safeAreaInsets!.top) * 2 + height
+const navHeight = safeAreaInsets!.top + 44
 // console.log(safeAreaInsets?.top, top, height, navHeight)
 </script>
 
 <style scoped lang="scss">
 .navbar {
-  background-image: url(@/static/images/navigator_bg.png);
+  background-image: url(@/static/icons/navigator_bg.png);
   background-size: cover;
   display: flex;
   flex-direction: column;

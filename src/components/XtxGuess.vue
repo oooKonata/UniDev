@@ -3,13 +3,13 @@
   <view class="caption">
     <image
       class="caption-icon"
-      src="@/static/images/bubble.png"
+      src="@/static/icons/bubble.png"
       mode="scaleToFill"
     />
     <text class="title">猜你喜欢</text>
     <image
       class="caption-icon"
-      src="@/static/images/bubble.png"
+      src="@/static/icons/bubble.png"
       mode="scaleToFill"
     />
   </view>
