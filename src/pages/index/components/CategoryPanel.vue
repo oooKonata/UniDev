@@ -1,19 +1,3 @@
-<template>
-  <!-- 首页分类 -->
-  <view class="category">
-    <navigator
-      class="category-item"
-      url="/pages/index/index"
-      hover-class="none"
-      v-for="item in list"
-      :key="item.id"
-    >
-      <image class="icon" :src="item.icon" />
-      <text class="text">{{ item.name }}</text>
-    </navigator>
-  </view>
-</template>
-
 <script setup lang="ts">
 import type { CategoryItem } from '@/types/home'
 
@@ -21,6 +5,15 @@ defineProps<{
   list: CategoryItem[]
 }>()
 </script>
+
+<template>
+  <view class="category">
+    <view class="category-item" v-for="item in list" :key="item.id">
+      <image class="icon" :src="item.icon" />
+      <text class="text">{{ item.name }}</text>
+    </view>
+  </view>
+</template>
 
 <style scoped lang="scss">
 .category {
@@ -34,14 +27,18 @@ defineProps<{
     justify-content: center;
     align-items: center;
     width: 150rpx;
-    padding-bottom: 16rpx;
+    margin-bottom: 16rpx;
+    &:nth-last-child(-n + 5) {
+      margin-bottom: 0;
+    }
     .icon {
-      width: 100rpx;
-      height: 100rpx;
+      width: 96rpx;
+      height: 96rpx;
+      background-size: cover;
     }
     .text {
       font-size: 26rpx;
-      color: #666;
+      color: $n-60;
     }
   }
 }

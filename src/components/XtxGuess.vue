@@ -1,34 +1,3 @@
-<template>
-  <!-- 猜你喜欢 -->
-  <view class="caption">
-    <image
-      class="caption-icon"
-      src="@/static/icons/bubble.png"
-      mode="scaleToFill"
-    />
-    <text class="title">猜你喜欢</text>
-    <image
-      class="caption-icon"
-      src="@/static/icons/bubble.png"
-      mode="scaleToFill"
-    />
-  </view>
-  <view class="guess">
-    <navigator class="guess-item" v-for="item in guessList" :key="item.id">
-      <image class="image" mode="aspectFit" :src="item.picture" />
-      <view class="name">{{ item.name }}</view>
-      <view class="price">
-        <text class="small">¥</text>
-        <text>{{ item.price }}</text>
-      </view>
-    </navigator>
-  </view>
-  <!-- 三元运算符条件渲染 -->
-  <view class="loading-text">{{
-    finishFlag ? '没有更多数据～' : '正在加载...'
-  }}</view>
-</template>
-
 <script setup lang="ts">
 import { getHomeGuessAPI } from '@/api/home'
 import type { GuessItem } from '@/types/home'
@@ -82,15 +51,44 @@ onMounted(() => {
 defineExpose({ resetData, getHomeGuessData })
 </script>
 
+<template>
+  <view class="caption">
+    <image
+      class="caption-icon"
+      src="@/static/icons/bubble.png"
+      mode="scaleToFill"
+    />
+    <text class="title">猜你喜欢</text>
+    <image
+      class="caption-icon"
+      src="@/static/icons/bubble.png"
+      mode="scaleToFill"
+    />
+  </view>
+  <view class="guess">
+    <view class="guess-item" v-for="item in guessList" :key="item.id">
+      <image class="image" mode="aspectFit" :src="item.picture" />
+      <view class="name">{{ item.name }}</view>
+      <view class="price">
+        <text class="small">¥</text>
+        <text>{{ item.price }}</text>
+      </view>
+    </view>
+  </view>
+  <view class="loading-text">{{
+    finishFlag ? '没有更多数据～' : '正在加载...'
+  }}</view>
+</template>
+
 <style scoped lang="scss">
 /* 标题 */
 .caption {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 16rpx 0 32rpx;
+  padding: 32rpx 0;
   font-size: 32rpx;
-  color: #333;
+  color: $n-80;
   .caption-icon {
     width: 26rpx;
     height: 26rpx;

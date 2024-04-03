@@ -1,10 +1,21 @@
+<script setup lang="ts">
+import type { HotItem } from '@/types/home'
+
+const props = defineProps<{
+  list: HotItem[]
+}>()
+
+const handelClick = (index: number) => {
+  uni.navigateTo({ url: '/pages/hot/hot?type=' + props.list[index].type })
+}
+</script>
+
 <template>
-  <!-- 热门推荐 -->
-  <view class="panel hot">
-    <navigator
+  <view class="hot-panel">
+    <view
       class="item"
-      :url="`/pages/hot/hot?type=${item.type}`"
-      v-for="item in list"
+      @click="handelClick(index)"
+      v-for="(item, index) in list"
       :key="item.id"
     >
       <view class="title">
@@ -16,25 +27,17 @@
           <image class="image" :src="src" mode="aspectFit" />
         </view>
       </view>
-    </navigator>
+    </view>
   </view>
 </template>
 
-<script setup lang="ts">
-import type { HotItem } from '@/types/home'
-
-defineProps<{
-  list: HotItem[]
-}>()
-</script>
-
 <style scoped lang="scss">
-.hot {
+.hot-panel {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 0 16rpx;
-  margin-top: 16rpx;
+  margin-top: 32rpx;
   .item {
     width: 351rpx;
     background-color: #fff;
@@ -42,16 +45,19 @@ defineProps<{
     padding: 16rpx 24rpx 24rpx;
     box-sizing: border-box;
     margin-bottom: 16rpx;
+    &:nth-last-child(-n + 2) {
+      margin-bottom: 0;
+    }
     .title {
       display: flex;
       align-items: center;
-      font-size: 32rpx;
-      color: #333;
+      font-size: 30rpx;
+      color: $n-80;
 
       .title-desc {
         font-size: 24rpx;
-        color: #999;
-        margin-left: 16rpx;
+        color: $n-40;
+        margin-left: 12rpx;
       }
     }
     .cards {

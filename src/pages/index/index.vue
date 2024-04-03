@@ -1,29 +1,3 @@
-<template>
-  <!-- 自定义导航栏 -->
-  <CustomNavBar />
-  <scroll-view
-    class="srcoll-view"
-    refresher-enabled
-    @refresherrefresh="onRefresherrefresh"
-    :refresher-triggered="isTriggered"
-    @scrolltolower="onScrolltolower"
-    scroll-y
-  >
-    <!-- 骨架屏 -->
-    <PageSkeleton v-if="isLoading" />
-    <template v-else>
-      <!-- 轮播图 -->
-      <XtxSwiper :list="bannerList" />
-      <!-- 分类面板 -->
-      <CategoryPanel :list="categoryList" />
-      <!-- 热门推荐 -->
-      <HotPanel :list="hotList" />
-      <!-- 猜你喜欢 -->
-      <XtxGuess ref="guessRef" />
-    </template>
-  </scroll-view>
-</template>
-
 <script setup lang="ts">
 import CustomNavBar from '@/pages/index/components/CustomNavBar.vue'
 import XtxSwiper from '@/components/XtxSwiper.vue'
@@ -105,6 +79,32 @@ const onRefresherrefresh = async () => {
   isTriggered.value = false
 }
 </script>
+
+<template>
+  <!-- 自定义导航栏 -->
+  <CustomNavBar />
+  <scroll-view
+    class="srcoll-view"
+    refresher-enabled
+    @refresherrefresh="onRefresherrefresh"
+    :refresher-triggered="isTriggered"
+    @scrolltolower="onScrolltolower"
+    scroll-y
+  >
+    <!-- 骨架屏 -->
+    <PageSkeleton v-if="isLoading" />
+    <template v-else>
+      <!-- 轮播图 -->
+      <XtxSwiper :list="bannerList" />
+      <!-- 分类面板 -->
+      <CategoryPanel :list="categoryList" />
+      <!-- 热门推荐 -->
+      <HotPanel :list="hotList" />
+      <!-- 猜你喜欢 -->
+      <XtxGuess ref="guessRef" />
+    </template>
+  </scroll-view>
+</template>
 
 <!-- 
   1、style 标签里使用 page 元素选择器不能写 scoped 
