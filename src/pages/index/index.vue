@@ -7,7 +7,7 @@ import XtxGuess from '@/components/XtxGuess.vue'
 import PageSkeleton from './components/PageSkeleton.vue'
 import { getHomeBannerAPI, getHomeCategoryAPI, getHomeHotAPI } from '@/api/home'
 import type { BannerItem, CategoryItem, HotItem } from '@/types/home'
-import { onLoad } from '@dcloudio/uni-app'
+import { onLoad, onReachBottom } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 
 // 获取banner列表信息
@@ -51,9 +51,9 @@ onLoad(async () => {
 const guessRef = ref<InstanceType<typeof XtxGuess>>()
 
 // 滚动触底
-const onScrolltolower = () => {
+onReachBottom(() => {
   guessRef.value?.getHomeGuessData()
-}
+})
 
 // 当前下拉状态
 const isTriggered = ref(false)
@@ -83,12 +83,11 @@ const onRefresherrefresh = async () => {
 <template>
   <!-- 自定义导航栏 -->
   <CustomNavBar />
-  <scroll-view
-    class="srcoll-view"
+  <view
+    class="srcoll"
     refresher-enabled
     @refresherrefresh="onRefresherrefresh"
     :refresher-triggered="isTriggered"
-    @scrolltolower="onScrolltolower"
     scroll-y
   >
     <!-- 骨架屏 -->
@@ -103,7 +102,7 @@ const onRefresherrefresh = async () => {
       <!-- 猜你喜欢 -->
       <XtxGuess ref="guessRef" />
     </template>
-  </scroll-view>
+  </view>
 </template>
 
 <!-- 
@@ -113,10 +112,9 @@ const onRefresherrefresh = async () => {
 <style lang="scss">
 page {
   background-color: #f5f5f5;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  .srcoll-view {
+  .srcoll {
     height: 0rpx;
     flex: 1;
   }
