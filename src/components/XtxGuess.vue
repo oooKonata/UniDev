@@ -7,7 +7,7 @@ import { onMounted } from 'vue'
 
 // 分页参数，Required：可选参数强制必填 Required<PageParams>
 const pageParams: Required<PageParams> = {
-  page: 1,
+  page: import.meta.env.DEV ? 30 : 1,
   pageSize: 10,
 }
 // 分页结束标记
@@ -52,32 +52,34 @@ defineExpose({ resetData, getHomeGuessData })
 </script>
 
 <template>
-  <view class="caption">
-    <image
-      class="caption-icon"
-      src="@/static/icons/bubble.png"
-      mode="scaleToFill"
-    />
-    <text class="title">猜你喜欢</text>
-    <image
-      class="caption-icon"
-      src="@/static/icons/bubble.png"
-      mode="scaleToFill"
-    />
-  </view>
-  <view class="guess">
-    <view class="guess-item" v-for="item in guessList" :key="item.id">
-      <image class="image" mode="aspectFit" :src="item.picture" />
-      <view class="name">{{ item.name }}</view>
-      <view class="price">
-        <text class="small">¥</text>
-        <text>{{ item.price }}</text>
+  <view class="container">
+    <view class="caption">
+      <image
+        class="caption-icon"
+        src="@/static/icons/bubble.png"
+        mode="scaleToFill"
+      />
+      <text class="title">猜你喜欢</text>
+      <image
+        class="caption-icon"
+        src="@/static/icons/bubble.png"
+        mode="scaleToFill"
+      />
+    </view>
+    <view class="guess">
+      <view class="guess-item" v-for="item in guessList" :key="item.id">
+        <image class="image" mode="aspectFit" :src="item.picture" />
+        <view class="name">{{ item.name }}</view>
+        <view class="price">
+          <text class="small">¥</text>
+          <text>{{ item.price }}</text>
+        </view>
       </view>
     </view>
+    <view class="loading-text">{{
+      finishFlag ? '没有更多数据～' : '正在加载...'
+    }}</view>
   </view>
-  <view class="loading-text">{{
-    finishFlag ? '没有更多数据～' : '正在加载...'
-  }}</view>
 </template>
 
 <style scoped lang="scss">

@@ -1,3 +1,13 @@
+<script setup lang="ts">
+// 获取安全边距
+const { safeAreaInsets } = uni.getSystemInfoSync()
+// 获取小程序胶囊菜单位置信息：上边距 和 胶囊高度
+// const { top, height } = uni.getMenuButtonBoundingClientRect()
+// 计算导航栏高度，让胶囊菜单垂直居中导航栏
+const navHeight = safeAreaInsets!.top + 44
+// console.log(safeAreaInsets?.top, top, height, navHeight)
+</script>
+
 <template>
   <view class="navbar" :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
     <!-- logo -->
@@ -12,16 +22,6 @@
     </view>
   </view>
 </template>
-
-<script setup lang="ts">
-// 获取安全边距
-const { safeAreaInsets } = uni.getSystemInfoSync()
-// 获取小程序胶囊菜单位置信息：上边距 和 胶囊高度
-// const { top, height } = uni.getMenuButtonBoundingClientRect()
-// 计算导航栏高度，让胶囊菜单垂直居中导航栏
-const navHeight = safeAreaInsets!.top + 44
-// console.log(safeAreaInsets?.top, top, height, navHeight)
-</script>
 
 <style scoped lang="scss">
 .navbar {

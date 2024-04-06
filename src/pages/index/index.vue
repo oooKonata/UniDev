@@ -7,7 +7,7 @@ import XtxGuess from '@/components/XtxGuess.vue'
 import PageSkeleton from './components/PageSkeleton.vue'
 import { getHomeBannerAPI, getHomeCategoryAPI, getHomeHotAPI } from '@/api/home'
 import type { BannerItem, CategoryItem, HotItem } from '@/types/home'
-import { onLoad, onReachBottom } from '@dcloudio/uni-app'
+import { onLoad, onPullDownRefresh, onReachBottom } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 
 // 获取banner列表信息
@@ -56,11 +56,9 @@ onReachBottom(() => {
 })
 
 // 当前下拉状态
-const isTriggered = ref(false)
+// const isTriggered = ref(false)
 // 自定义刷新被触发，重新加载数据
-const onRefresherrefresh = async () => {
-  // 开始动画
-  isTriggered.value = true
+onPullDownRefresh(async () => {
   // 加载数据之前，重置“猜你喜欢”数据
   guessRef.value?.resetData()
   // 加载数据：依次加载完，全部加载时间较长
@@ -76,47 +74,47 @@ const onRefresherrefresh = async () => {
     guessRef.value?.getHomeGuessData(),
   ])
   // 数据加载完毕，关闭动画
-  isTriggered.value = false
-}
+  uni.stopPullDownRefresh()
+})
 </script>
 
 <template>
-  <!-- 自定义导航栏 -->
-  <CustomNavBar />
-  <view
-    class="srcoll"
-    refresher-enabled
-    @refresherrefresh="onRefresherrefresh"
-    :refresher-triggered="isTriggered"
-    scroll-y
-  >
-    <!-- 骨架屏 -->
-    <PageSkeleton v-if="isLoading" />
-    <template v-else>
-      <!-- 轮播图 -->
-      <XtxSwiper :list="bannerList" />
-      <!-- 分类面板 -->
-      <CategoryPanel :list="categoryList" />
-      <!-- 热门推荐 -->
-      <HotPanel :list="hotList" />
-      <!-- 猜你喜欢 -->
-      <XtxGuess ref="guessRef" />
-    </template>
+  <view class="page">
+    <!-- 自定义导航栏 -->
+    <CustomNavBar class="nav" />
+    <view class="scroll">
+      <!-- 骨架屏 -->
+      <PageSkeleton v-if="isLoading" />
+      <template v-else>
+        <!-- 轮播图 -->
+        <XtxSwiper :list="bannerList" />
+        <!-- 分类面板 -->
+        <CategoryPanel :list="categoryList" />
+        <!-- 热门推荐 -->
+        <HotPanel :list="hotList" />
+        <!-- 猜你喜欢 -->
+        <XtxGuess ref="guessRef" class="xtx-guess" />
+      </template>
+    </view>
   </view>
 </template>
 
-<!-- 
-  1、style 标签里使用 page 元素选择器不能写 scoped 
-  2、为什么 pages 配置项里的 style 里的 backgroundColor 设置颜色不生效
--->
-<style lang="scss">
-page {
-  background-color: #f5f5f5;
+<style scoped lang="scss">
+.page {
   display: flex;
   flex-direction: column;
-  .srcoll {
+  .nav {
+    position: fixed;
+    z-index: 9;
+    width: 100%;
+  }
+  .scroll {
     height: 0rpx;
     flex: 1;
+    margin-top: 184rpx;
+  }
+  .xtx-guess {
+    margin-bottom: 100rpx;
   }
 }
 </style>
