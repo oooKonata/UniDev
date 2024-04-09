@@ -36,7 +36,6 @@ const getHotRecommendData = async () => {
   })
   bannerPicture.value = res.result.bannerPicture
   subTypes.value = res.result.subTypes
-  console.log(subTypes.value)
 }
 
 // 页面加载

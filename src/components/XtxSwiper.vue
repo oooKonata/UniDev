@@ -36,7 +36,6 @@ const props = defineProps<{
   .swiper {
     width: 100%;
     height: 240rpx;
-    margin-top: 16rpx;
     .image {
       width: 718rpx;
       height: 100%;

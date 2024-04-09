@@ -1,17 +1,12 @@
 <script setup lang="ts">
-// 获取安全边距
-const { safeAreaInsets } = uni.getSystemInfoSync()
-// 获取小程序胶囊菜单位置信息：上边距 和 胶囊高度
-// const { top, height } = uni.getMenuButtonBoundingClientRect()
-// 计算导航栏高度，让胶囊菜单垂直居中导航栏
-const navHeight = safeAreaInsets!.top + 44
-// console.log(safeAreaInsets?.top, top, height, navHeight)
+// 获取状态栏高度
+const { statusBarHeight } = uni.getSystemInfoSync()
 </script>
 
 <template>
-  <view class="navbar" :style="{ paddingTop: safeAreaInsets?.top + 'px' }">
+  <view class="navbar" :style="{ paddingTop: statusBarHeight + 'px' }">
     <!-- logo -->
-    <view class="logo" :style="{ height: navHeight + 'px' }">
+    <view class="logo">
       <image class="logo-image" src="@/static/icons/logo.png" />
       <text class="logo-text">新鲜 · 亲民 · 快捷</text>
     </view>

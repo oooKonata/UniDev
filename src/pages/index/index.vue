@@ -10,6 +10,10 @@ import type { BannerItem, CategoryItem, HotItem } from '@/types/home'
 import { onLoad, onPullDownRefresh, onReachBottom } from '@dcloudio/uni-app'
 import { ref } from 'vue'
 
+// 获取页面状态栏高度
+const { statusBarHeight } = uni.getSystemInfoSync()
+console.log(statusBarHeight)
+
 // 获取banner列表信息
 const bannerList = ref<BannerItem[]>([])
 const getHomeBannerData = async () => {
@@ -82,7 +86,7 @@ onPullDownRefresh(async () => {
   <view class="page">
     <!-- 自定义导航栏 -->
     <CustomNavBar class="nav" />
-    <view class="scroll">
+    <view class="scroll" :style="{ marginTop: statusBarHeight! + 100 + 'px' }">
       <!-- 骨架屏 -->
       <PageSkeleton v-if="isLoading" />
       <template v-else>
@@ -111,7 +115,6 @@ onPullDownRefresh(async () => {
   .scroll {
     height: 0rpx;
     flex: 1;
-    margin-top: 184rpx;
   }
   .xtx-guess {
     margin-bottom: 100rpx;
