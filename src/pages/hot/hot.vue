@@ -44,6 +44,11 @@ onLoad(() => {
   getHotRecommendData()
 })
 
+// 禁用页面滚动
+const moveHandle = () => {
+  console.log('页面滚动被禁用了～')
+}
+
 // 滚动触底
 onReachBottom(async () => {
   // 获取当前tab选项
@@ -77,10 +82,10 @@ onReachBottom(async () => {
 
 <template>
   <view class="page">
-    <view class="cover">
+    <view class="cover" @touchmove.stop.prevent="moveHandle">
       <image class="image" :src="bannerPicture" mode="aspectFill" />
     </view>
-    <view class="tabs">
+    <view class="tabs" @touchmove.stop.prevent="moveHandle">
       <text
         class="text"
         v-for="(item, index) in subTypes"
