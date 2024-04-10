@@ -21,3 +21,13 @@ view {
 image {
   vertical-align: middle;
 }
+
+/* 自定义虚线 */
+.dashed-line {
+  color: $n-80;
+  width: 100%;
+  height: 1rpx;
+  background-size: 12rpx 1rpx;
+  background-repeat: repeat-x;
+  background-image: linear-gradient(to right, $n-20 0%, $n-20 50%, transparent 50%);
+}

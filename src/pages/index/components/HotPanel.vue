@@ -53,7 +53,6 @@ const handelClick = (index: number) => {
       align-items: center;
       font-size: 30rpx;
       color: $n-80;
-
       .title-desc {
         font-size: 24rpx;
         color: $n-40;
