@@ -10,7 +10,7 @@
       // "^Xtx(.*)": "@/components/Xtx$1.vue"
     }
   },
-  // "entryPagePath": "pages/hot/hot",
+  "entryPagePath": "pages/category/category",
   "pages": [
     {
       "path": "pages/index/index",
@@ -24,7 +24,8 @@
     {
       "path": "pages/category/category",
       "style": {
-        "navigationBarTitleText": "商品分类"
+        "navigationBarTitleText": "商品分类",
+        "navigationBarBackgroundColor": "#f5f5f5"
       }
     },
     {
@@ -87,7 +88,6 @@
   "globalStyle": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#ffffff",
-    "backgroundColor": "#F8F8F8"
+    "navigationBarBackgroundColor": "#ffffff"
   }
 }
