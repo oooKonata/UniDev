@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import XtxSwiper from '@/components/XtxSwiper.vue'
 import { getHomeBannerAPI } from '@/api/home'
-import type { BannerItem } from '@/types/home'
+import { getCategoryTopAPI } from '@/api/category'
+import type { BannerItem, CategoryItem } from '@/types/home'
+import type { CategoryTopItem } from '@/types/category'
 import { onLoad } from '@dcloudio/uni-app'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const bannerList = ref<BannerItem[]>([])
 const getBannerData = async () => {
@@ -11,8 +13,21 @@ const getBannerData = async () => {
   bannerList.value = res.result
 }
 
+const categoryList = ref<CategoryTopItem[]>([])
+const activeIndex = ref(0)
+const getCategoryTopData = async () => {
+  const res = await getCategoryTopAPI()
+  categoryList.value = res.result
+  console.log(res)
+}
+
 onLoad(() => {
   getBannerData()
+  getCategoryTopData()
+})
+
+const subCategoryList = computed(() => {
+  return categoryList.value[activeIndex.value]?.children || []
 })
 </script>
 
@@ -27,34 +42,31 @@ onLoad(() => {
       <scroll-view class="primary" scroll-y>
         <view
           class="item"
-          v-for="(item, index) in 10"
-          :key="item"
-          :class="{ active: index === 0 }"
+          v-for="(item, index) in categoryList"
+          :key="item.id"
+          :class="{ active: index === activeIndex }"
+          @click="activeIndex = index"
         >
-          <text class="tag">居家</text>
+          <text class="tag">{{ item.name }}</text>
         </view>
       </scroll-view>
       <view class="secondary">
         <XtxSwiper class="banner" :list="bannerList" />
-        <view class="panel" v-for="item in 3" :key="item">
+        <view class="panel" v-for="item in subCategoryList" :key="item.id">
           <view class="title">
-            <text class="name">宠物用品</text>
+            <text class="name">{{ item.name }}</text>
             <view class="more">
               <text>全部</text>
               <view class="icon-right"></view>
             </view>
           </view>
           <view class="card">
-            <view class="goods" v-for="item in 4" :key="item">
-              <image
-                class="image"
-                src="https://yanxuan-item.nosdn.127.net/674ec7a88de58a026304983dd049ea69.jpg"
-                mode="aspectFill"
-              />
-              <view class="name">木天蓼逗猫棍</view>
+            <view class="goods" v-for="good in item.goods" :key="good.id">
+              <image class="image" :src="good.picture" mode="aspectFill" />
+              <view class="name">{{ good.name }}</view>
               <view class="price">
                 <text class="symbol">¥</text>
-                <text class="amount">16.00</text>
+                <text class="amount">{{ good.price }}</text>
               </view>
             </view>
           </view>
@@ -158,8 +170,16 @@ onLoad(() => {
               border-radius: 16rpx;
             }
             .name {
-              font-size: 24rpx;
-              margin: 8rpx 0 4rpx;
+              font-size: 22rpx;
+              width: 168rpx;
+              margin: 12rpx 0 4rpx;
+              /* 块容器中的内容限制为指定的行数 */
+              display: -webkit-box;
+              -webkit-box-orient: vertical;
+              -webkit-line-clamp: 1;
+              /* 超过两行裁剪并显示省略号 */
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
             .price {
               color: #cf4444;
