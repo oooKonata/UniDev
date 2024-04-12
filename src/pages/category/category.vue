@@ -128,7 +128,7 @@ onLoad(() => {
       width: 570rpx;
       margin-left: auto;
       .banner {
-        margin-top: 16rpx;
+        margin: 16rpx 16rpx 0;
       }
       .panel {
         .title {

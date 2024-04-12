@@ -34,8 +34,9 @@ const props = defineProps<{
 .container {
   position: relative;
   .swiper {
-    padding: 0 16rpx;
-    height: 240rpx;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/1;
     .image {
       width: 100%;
       height: 100%;

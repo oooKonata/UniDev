@@ -91,7 +91,7 @@ onPullDownRefresh(async () => {
       <PageSkeleton v-if="isLoading" />
       <template v-else>
         <!-- 轮播图 -->
-        <XtxSwiper :list="bannerList" />
+        <XtxSwiper class="banner" :list="bannerList" />
         <!-- 分类面板 -->
         <CategoryPanel :list="categoryList" />
         <!-- 热门推荐 -->
@@ -115,6 +115,9 @@ onPullDownRefresh(async () => {
   .scroll {
     height: 0rpx;
     flex: 1;
+    .banner {
+      margin: 0 16rpx;
+    }
   }
   .xtx-guess {
     margin-bottom: 100rpx;
