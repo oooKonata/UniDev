@@ -86,18 +86,18 @@ onPullDownRefresh(async () => {
   <view class="page">
     <!-- 自定义导航栏 -->
     <CustomNavBar class="nav" />
-    <view class="scroll" :style="{ marginTop: statusBarHeight! + 100 + 'px' }">
+    <view class="scroll" :style="{ marginTop: statusBarHeight! + 92 + 'px' }">
       <!-- 骨架屏 -->
       <PageSkeleton v-if="isLoading" />
       <template v-else>
         <!-- 轮播图 -->
-        <XtxSwiper class="banner" :list="bannerList" />
+        <XtxSwiper :list="bannerList" />
         <!-- 分类面板 -->
         <CategoryPanel :list="categoryList" />
         <!-- 热门推荐 -->
         <HotPanel :list="hotList" />
         <!-- 猜你喜欢 -->
-        <XtxGuess ref="guessRef" class="xtx-guess" />
+        <XtxGuess ref="guessRef" />
       </template>
     </view>
   </view>
@@ -113,14 +113,7 @@ onPullDownRefresh(async () => {
     width: 100%;
   }
   .scroll {
-    height: 0rpx;
-    flex: 1;
-    .banner {
-      margin: 0 16rpx;
-    }
-  }
-  .xtx-guess {
-    margin-bottom: 100rpx;
+    padding-bottom: var(--window-bottom);
   }
 }
 </style>

@@ -37,7 +37,6 @@ const handelClick = (index: number) => {
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 0 16rpx;
-  margin-top: 32rpx;
   .item {
     width: 351rpx;
     background-color: #fff;

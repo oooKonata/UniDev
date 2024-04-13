@@ -18,12 +18,13 @@ const activeIndex = ref(0)
 const getCategoryTopData = async () => {
   const res = await getCategoryTopAPI()
   categoryList.value = res.result
-  console.log(res)
 }
 
-onLoad(() => {
-  getBannerData()
-  getCategoryTopData()
+const isLoading = ref(true)
+
+onLoad(async () => {
+  await Promise.all([getBannerData(), getCategoryTopData()])
+  isLoading.value = false
 })
 
 const subCategoryList = computed(() => {
@@ -81,6 +82,7 @@ const subCategoryList = computed(() => {
   display: flex;
   flex-direction: column;
   background-color: #fff;
+  padding-bottom: var(--window-bottom);
   .search {
     z-index: 9;
     background-color: $n-bgColor;
@@ -104,7 +106,7 @@ const subCategoryList = computed(() => {
     }
   }
   .categories {
-    margin: 96rpx 0 116rpx;
+    margin: 96rpx 0 16rpx;
     .primary {
       position: fixed;
       width: 180rpx;
@@ -139,9 +141,6 @@ const subCategoryList = computed(() => {
       background-color: #fff;
       width: 570rpx;
       margin-left: auto;
-      .banner {
-        margin: 16rpx 16rpx 0;
-      }
       .panel {
         .title {
           display: flex;

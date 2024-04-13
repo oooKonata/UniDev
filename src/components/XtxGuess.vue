@@ -83,66 +83,68 @@ defineExpose({ resetData, getHomeGuessData })
 </template>
 
 <style scoped lang="scss">
-/* 标题 */
-.caption {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 32rpx 0;
-  font-size: 32rpx;
-  color: $n-80;
-  .caption-icon {
-    width: 26rpx;
-    height: 26rpx;
+.container {
+  /* 标题 */
+  .caption {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 32rpx 0;
+    font-size: 32rpx;
+    color: $n-80;
+    .caption-icon {
+      width: 26rpx;
+      height: 26rpx;
+    }
+    .title {
+      margin: 0 16rpx;
+    }
   }
-  .title {
-    margin: 0 16rpx;
-  }
-}
-/* 卡片 */
-.guess {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  padding: 0 16rpx;
-  .guess-item {
-    width: 351rpx;
-    background-color: #fff;
-    padding: 24rpx 24rpx 20rpx;
-    margin-bottom: 16rpx;
-    border-radius: 16rpx;
-    box-sizing: border-box;
-    .image {
-      width: 303rpx;
-      height: 303rpx;
+  /* 卡片 */
+  .guess {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 16rpx;
+    .guess-item {
+      width: 351rpx;
+      background-color: #fff;
+      padding: 24rpx 24rpx 20rpx;
+      margin-bottom: 16rpx;
       border-radius: 16rpx;
-    }
-    .name {
-      font-size: 26rpx;
-      padding-top: 16rpx;
-      /* 块容器中的内容限制为指定的行数 */
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      /* 超过两行裁剪并显示省略号 */
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .price {
-      padding-top: 8rpx;
-      color: #cf4444;
-      font-size: 28rpx;
-      .small {
-        font-size: 22rpx;
+      box-sizing: border-box;
+      .image {
+        width: 303rpx;
+        height: 303rpx;
+        border-radius: 16rpx;
+      }
+      .name {
+        font-size: 26rpx;
+        padding-top: 16rpx;
+        /* 块容器中的内容限制为指定的行数 */
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        /* 超过两行裁剪并显示省略号 */
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .price {
+        padding-top: 8rpx;
+        color: #cf4444;
+        font-size: 28rpx;
+        .small {
+          font-size: 22rpx;
+        }
       }
     }
   }
-}
-/* 加载提示文字 */
-.loading-text {
-  text-align: center;
-  font-size: 26rpx;
-  padding: 16rpx 0 32rpx;
-  color: #999;
+  /* 加载提示文字 */
+  .loading-text {
+    text-align: center;
+    font-size: 26rpx;
+    padding: 16rpx 0 32rpx;
+    color: #999;
+  }
 }
 </style>

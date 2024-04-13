@@ -33,6 +33,7 @@ const props = defineProps<{
 <style scoped lang="scss">
 .container {
   position: relative;
+  margin: 16rpx 16rpx 0;
   .swiper {
     width: 100%;
     height: auto;

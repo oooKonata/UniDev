@@ -20,7 +20,7 @@ defineProps<{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 32rpx 0 0;
+  margin: 32rpx 0;
   .category-item {
     display: flex;
     flex-direction: column;
