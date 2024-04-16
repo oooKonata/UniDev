@@ -12,7 +12,6 @@ import { ref } from 'vue'
 
 // 获取页面状态栏高度
 const { statusBarHeight } = uni.getSystemInfoSync()
-console.log(statusBarHeight)
 
 // 获取banner列表信息
 const bannerList = ref<BannerItem[]>([])

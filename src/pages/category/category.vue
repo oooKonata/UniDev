@@ -6,6 +6,7 @@ import type { BannerItem, CategoryItem } from '@/types/home'
 import type { CategoryTopItem } from '@/types/category'
 import { onLoad } from '@dcloudio/uni-app'
 import { ref, computed } from 'vue'
+import Goods from '../goods/goods.vue'
 
 const bannerList = ref<BannerItem[]>([])
 const getBannerData = async () => {
@@ -30,6 +31,11 @@ onLoad(async () => {
 const subCategoryList = computed(() => {
   return categoryList.value[activeIndex.value]?.children || []
 })
+
+const handleClick = (id: string) => {
+  uni.navigateTo({ url: `/pages/goods/goods?id=${id}` })
+  console.log('id', id)
+}
 </script>
 
 <template>
@@ -62,12 +68,17 @@ const subCategoryList = computed(() => {
             </view>
           </view>
           <view class="card">
-            <view class="goods" v-for="good in item.goods" :key="good.id">
-              <image class="image" :src="good.picture" mode="aspectFill" />
-              <view class="name">{{ good.name }}</view>
+            <view
+              class="goods"
+              v-for="goods in item.goods"
+              :key="goods.id"
+              @click="handleClick(goods.id)"
+            >
+              <image class="image" :src="goods.picture" mode="aspectFill" />
+              <view class="name">{{ Goods.name }}</view>
               <view class="price">
                 <text class="symbol">¥</text>
-                <text class="amount">{{ good.price }}</text>
+                <text class="amount">{{ goods.price }}</text>
               </view>
             </view>
           </view>
