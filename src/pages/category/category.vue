@@ -75,7 +75,7 @@ const handleClick = (id: string) => {
               @click="handleClick(goods.id)"
             >
               <image class="image" :src="goods.picture" mode="aspectFill" />
-              <view class="name">{{ Goods.name }}</view>
+              <view class="name ellipsis">{{ goods.name }}</view>
               <view class="price">
                 <text class="symbol">¥</text>
                 <text class="amount">{{ goods.price }}</text>
@@ -170,10 +170,12 @@ const handleClick = (id: string) => {
         .card {
           display: flex;
           flex-wrap: wrap;
-          justify-content: space-between;
           margin: 0 16rpx;
           .goods {
-            margin-bottom: 16rpx;
+            margin: 0 16rpx 16rpx 0;
+            &:nth-child(3n) {
+              margin-right: 0;
+            }
             .image {
               width: 168rpx;
               height: 168rpx;
@@ -183,13 +185,6 @@ const handleClick = (id: string) => {
               font-size: 22rpx;
               width: 168rpx;
               margin: 12rpx 0 4rpx;
-              /* 块容器中的内容限制为指定的行数 */
-              display: -webkit-box;
-              -webkit-box-orient: vertical;
-              -webkit-line-clamp: 1;
-              /* 超过两行裁剪并显示省略号 */
-              overflow: hidden;
-              text-overflow: ellipsis;
             }
             .price {
               color: #cf4444;

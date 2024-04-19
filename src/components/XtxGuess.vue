@@ -71,7 +71,7 @@ defineExpose({ resetData, getHomeGuessData })
         <image class="image" mode="aspectFit" :src="item.picture" />
         <view class="name">{{ item.name }}</view>
         <view class="price">
-          <text class="small">¥</text>
+          <text class="symbol">¥</text>
           <text>{{ item.price }}</text>
         </view>
       </view>
@@ -133,7 +133,7 @@ defineExpose({ resetData, getHomeGuessData })
         padding-top: 8rpx;
         color: #cf4444;
         font-size: 28rpx;
-        .small {
+        .symbol {
           font-size: 22rpx;
         }
       }

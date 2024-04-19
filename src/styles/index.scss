@@ -31,3 +31,13 @@ image {
   background-repeat: repeat-x;
   background-image: linear-gradient(to right, $n-20 0%, $n-20 50%, transparent 50%);
 }
+
+.ellipsis {
+  /* 块容器中的内容限制为指定的行数 */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  /* 超过两行裁剪并显示省略号 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
