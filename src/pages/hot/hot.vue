@@ -73,9 +73,7 @@ onReachBottom(async () => {
     pageSize: currentSubTypes.goodsItems.pageSize,
   })
   // 数组追加，新获取到的res的数组是刷新新增的一页，依次追加到当前tab的首次加载的数组上
-  currentSubTypes.goodsItems.items.push(
-    ...res.result.subTypes[activeIndex.value].goodsItems.items,
-  )
+  currentSubTypes.goodsItems.items.push(...res.result.subTypes[activeIndex.value].goodsItems.items)
 })
 </script>
 
@@ -94,18 +92,9 @@ onReachBottom(async () => {
         >{{ item.title }}
       </text>
     </view>
-    <view
-      class="scroll"
-      v-for="(item, index) in subTypes"
-      :key="item.id"
-      v-show="activeIndex === index"
-    >
+    <view class="scroll" v-for="(item, index) in subTypes" :key="item.id" v-show="activeIndex === index">
       <view class="goods">
-        <view
-          class="card"
-          v-for="goods in item.goodsItems.items"
-          :key="goods.id"
-        >
+        <view class="card" v-for="goods in item.goodsItems.items" :key="goods.id">
           <image class="image" :src="goods.picture" />
           <view class="name">{{ goods.name }}</view>
           <view class="price">
@@ -114,9 +103,7 @@ onReachBottom(async () => {
           </view>
         </view>
       </view>
-      <view class="loading-text">{{
-        item.finish ? '没有更多数据了～' : '正在加载...'
-      }}</view>
+      <view class="loading-text">{{ item.finish ? '没有更多数据了～' : '正在加载...' }}</view>
     </view>
   </view>
 </template>

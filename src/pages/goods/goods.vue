@@ -76,11 +76,7 @@ onLoad(() => {
       <view class="content">
         <view class="properties">
           <!-- 属性详情 -->
-          <view
-            class="item"
-            v-for="item in goods?.details.properties"
-            :key="item.name"
-          >
+          <view class="item" v-for="item in goods?.details.properties" :key="item.name">
             <text class="label">{{ item.name }}</text>
             <text class="value">{{ item.value }}</text>
           </view>
@@ -98,29 +94,17 @@ onLoad(() => {
         </view>
 
         <!-- 同类推荐 -->
-        <view
-          class="similar"
-          :style="{ paddingBottom: safeAreaInsets!.bottom + 50 + 'px' }"
-        >
+        <view class="similar" :style="{ paddingBottom: safeAreaInsets!.bottom + 50 + 'px' }">
           <view class="title">
             <text>同类推荐</text>
           </view>
-          <view class="content">
-            <view
-              class="goods"
-              v-for="item in 4"
-              :key="item"
-              hover-class="none"
-            >
-              <image
-                class="image"
-                mode="aspectFill"
-                src="https://yanxuan-item.nosdn.127.net/e0cea368f41da1587b3b7fc523f169d7.png"
-              />
-              <view class="name ellipsis">简约山形纹全棉提花毛巾</view>
+          <view class="card">
+            <view class="goods" v-for="item in goods?.similarProducts" :key="item.id">
+              <image class="image" mode="aspectFill" :src="item.picture" />
+              <view class="name ellipsis">{{ item.name }}</view>
               <view class="price">
                 <text class="symbol">¥</text>
-                <text class="number">18.50</text>
+                <text class="number">{{ item.price }}</text>
               </view>
             </view>
           </view>
@@ -235,6 +219,8 @@ onLoad(() => {
         color: $n-40;
       }
       .text {
+        max-width: 540rpx;
+        text-align: right;
         margin-right: 8rpx;
       }
     }
@@ -279,26 +265,31 @@ onLoad(() => {
         width: 100%;
       }
       .item {
-        height: 88rpx;
-        border-bottom: 1rpx solid $n-10;
+        // height: 88rpx;
+        padding: 28rpx 0;
+        border-top: 1rpx solid $n-10;
         display: flex;
-        justify-content: right;
+        justify-content: space-between;
         align-items: center;
         color: $n-80;
         font-size: 26rpx;
         &:nth-last-child(1) {
-          border-bottom: 0;
+          border-bottom: 1rpx solid $n-10;
         }
         .label {
           flex: 1;
           color: $n-40;
+        }
+        .value {
+          width: 540rpx;
+          text-align: right;
         }
       }
       .image-detail {
         width: 100%;
       }
     }
-    .content {
+    .card {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -310,6 +301,7 @@ onLoad(() => {
           border-radius: 16rpx;
         }
         .name {
+          max-width: 339rpx;
           font-size: 26rpx;
           padding-top: 16rpx;
         }
