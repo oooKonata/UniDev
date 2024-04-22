@@ -1,41 +1,41 @@
 <script setup lang="ts">
-import XtxSwiper from '@/components/XtxSwiper.vue'
-import { getHomeBannerAPI } from '@/api/home'
-import { getCategoryTopAPI } from '@/api/category'
-import type { BannerItem, CategoryItem } from '@/types/home'
-import type { CategoryTopItem } from '@/types/category'
-import { onLoad } from '@dcloudio/uni-app'
-import { ref, computed } from 'vue'
-import Goods from '../goods/goods.vue'
+  import XtxSwiper from '@/components/XtxSwiper.vue'
+  import { getHomeBannerAPI } from '@/api/home'
+  import { getCategoryTopAPI } from '@/api/category'
+  import type { BannerItem, CategoryItem } from '@/types/home'
+  import type { CategoryTopItem } from '@/types/category'
+  import { onLoad } from '@dcloudio/uni-app'
+  import { ref, computed } from 'vue'
+  import Goods from '../goods/goods.vue'
 
-const bannerList = ref<BannerItem[]>([])
-const getBannerData = async () => {
-  const res = await getHomeBannerAPI(2)
-  bannerList.value = res.result
-}
+  const bannerList = ref<BannerItem[]>([])
+  const getBannerData = async () => {
+    const res = await getHomeBannerAPI(2)
+    bannerList.value = res.result
+  }
 
-const categoryList = ref<CategoryTopItem[]>([])
-const activeIndex = ref(0)
-const getCategoryTopData = async () => {
-  const res = await getCategoryTopAPI()
-  categoryList.value = res.result
-}
+  const categoryList = ref<CategoryTopItem[]>([])
+  const activeIndex = ref(0)
+  const getCategoryTopData = async () => {
+    const res = await getCategoryTopAPI()
+    categoryList.value = res.result
+  }
 
-const isLoading = ref(true)
+  const isLoading = ref(true)
 
-onLoad(async () => {
-  await Promise.all([getBannerData(), getCategoryTopData()])
-  isLoading.value = false
-})
+  onLoad(async () => {
+    await Promise.all([getBannerData(), getCategoryTopData()])
+    isLoading.value = false
+  })
 
-const subCategoryList = computed(() => {
-  return categoryList.value[activeIndex.value]?.children || []
-})
+  const subCategoryList = computed(() => {
+    return categoryList.value[activeIndex.value]?.children || []
+  })
 
-const handleClick = (id: string) => {
-  uni.navigateTo({ url: `/pages/goods/goods?id=${id}` })
-  console.log('id', id)
-}
+  const handleClick = (id: string) => {
+    uni.navigateTo({ url: `/pages/goods/goods?id=${id}` })
+    console.log('id', id)
+  }
 </script>
 
 <template>
@@ -68,12 +68,7 @@ const handleClick = (id: string) => {
             </view>
           </view>
           <view class="card">
-            <view
-              class="goods"
-              v-for="goods in item.goods"
-              :key="goods.id"
-              @click="handleClick(goods.id)"
-            >
+            <view class="goods" v-for="goods in item.goods" :key="goods.id" @click="handleClick(goods.id)">
               <image class="image" :src="goods.picture" mode="aspectFill" />
               <view class="name ellipsis">{{ goods.name }}</view>
               <view class="price">
@@ -89,114 +84,114 @@ const handleClick = (id: string) => {
 </template>
 
 <style scoped lang="scss">
-.page {
-  display: flex;
-  flex-direction: column;
-  background-color: #fff;
-  padding-bottom: var(--window-bottom);
-  .search {
-    z-index: 9;
-    background-color: $n-bgColor;
-    padding: 16rpx 24rpx;
-    position: fixed;
-    width: 100%;
-    .input {
-      display: flex;
-      align-items: center;
-      height: 64rpx;
-      padding: 0 12rpx 0 24rpx;
-      color: $n-40;
-      font-size: 28rpx;
-      border-radius: 32rpx;
-      background-color: #fff;
-      .icon-search {
-        &::before {
-          margin-right: 12rpx;
-        }
-      }
-    }
-  }
-  .categories {
-    margin: 96rpx 0 16rpx;
-    .primary {
-      position: fixed;
-      width: 180rpx;
-      height: 100%;
+  .page {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding-bottom: var(--window-bottom);
+    .search {
+      z-index: 9;
       background-color: $n-bgColor;
-      flex: none;
-      .item {
-        height: 96rpx;
-        font-size: 26rpx;
-        color: $n-60;
+      padding: 16rpx 24rpx;
+      position: fixed;
+      width: 100%;
+      .input {
         display: flex;
-        justify-content: center;
         align-items: center;
-        position: relative;
-      }
-      .active {
-        color: $n-theme;
+        height: 64rpx;
+        padding: 0 12rpx 0 24rpx;
+        color: $n-40;
         font-size: 28rpx;
-        font-weight: bold;
-        &::before {
-          content: '';
-          position: absolute;
-          left: 0rpx;
-          width: 6rpx;
-          height: 40rpx;
-          border-radius: 3rpx;
-          background-color: $n-theme;
+        border-radius: 32rpx;
+        background-color: #fff;
+        .icon-search {
+          &::before {
+            margin-right: 12rpx;
+          }
         }
       }
     }
-    .secondary {
-      background-color: #fff;
-      width: 570rpx;
-      margin-left: auto;
-      .panel {
-        .title {
+    .categories {
+      margin: 96rpx 0 16rpx;
+      .primary {
+        position: fixed;
+        width: 180rpx;
+        height: 100%;
+        background-color: $n-bgColor;
+        flex: none;
+        .item {
+          height: 96rpx;
+          font-size: 26rpx;
+          color: $n-60;
           display: flex;
-          font-size: 28rpx;
-          color: $n-80;
-          justify-content: space-between;
+          justify-content: center;
           align-items: center;
-          padding: 24rpx 16rpx;
-          .more {
-            display: flex;
-            align-items: center;
-            font-size: 24rpx;
-            color: $n-40;
+          position: relative;
+        }
+        .active {
+          color: $n-theme;
+          font-size: 28rpx;
+          font-weight: bold;
+          &::before {
+            content: '';
+            position: absolute;
+            left: 0rpx;
+            width: 6rpx;
+            height: 40rpx;
+            border-radius: 3rpx;
+            background-color: $n-theme;
           }
         }
-        .card {
-          display: flex;
-          flex-wrap: wrap;
-          margin: 0 16rpx;
-          .goods {
-            margin: 0 16rpx 16rpx 0;
-            &:nth-child(3n) {
-              margin-right: 0;
-            }
-            .image {
-              width: 168rpx;
-              height: 168rpx;
-              border-radius: 16rpx;
-            }
-            .name {
-              font-size: 22rpx;
-              width: 168rpx;
-              margin: 12rpx 0 4rpx;
-            }
-            .price {
-              color: #cf4444;
+      }
+      .secondary {
+        background-color: #fff;
+        width: 570rpx;
+        margin-left: auto;
+        .panel {
+          .title {
+            display: flex;
+            font-size: 28rpx;
+            color: $n-80;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24rpx 16rpx;
+            .more {
+              display: flex;
+              align-items: center;
               font-size: 24rpx;
+              color: $n-40;
             }
-            &:nth-last-child(-n + 3) {
-              margin-bottom: 0;
+          }
+          .card {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 16rpx;
+            .goods {
+              margin: 0 16rpx 16rpx 0;
+              &:nth-child(3n) {
+                margin-right: 0;
+              }
+              .image {
+                width: 168rpx;
+                height: 168rpx;
+                border-radius: 16rpx;
+              }
+              .name {
+                font-size: 22rpx;
+                width: 168rpx;
+                margin: 12rpx 0 4rpx;
+              }
+              .price {
+                color: #cf4444;
+                font-size: 24rpx;
+              }
+              &:nth-last-child(-n + 3) {
+                margin-bottom: 0;
+              }
             }
           }
         }
       }
     }
   }
-}
 </style>

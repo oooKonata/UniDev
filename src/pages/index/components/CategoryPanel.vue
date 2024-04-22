@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { CategoryItem } from '@/types/home'
+  import type { CategoryItem } from '@/types/home'
 
-defineProps<{
-  list: CategoryItem[]
-}>()
+  defineProps<{
+    list: CategoryItem[]
+  }>()
 </script>
 
 <template>
@@ -16,30 +16,30 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
-.category {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin: 32rpx 0;
-  .category-item {
+  .category {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 150rpx;
-    margin-bottom: 16rpx;
-    &:nth-last-child(-n + 5) {
-      margin-bottom: 0;
-    }
-    .icon {
-      width: 96rpx;
-      height: 96rpx;
-      background-size: cover;
-    }
-    .text {
-      font-size: 26rpx;
-      color: $n-60;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 32rpx 0;
+    .category-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 150rpx;
+      margin-bottom: 16rpx;
+      &:nth-last-child(-n + 5) {
+        margin-bottom: 0;
+      }
+      .icon {
+        width: 96rpx;
+        height: 96rpx;
+        background-size: cover;
+      }
+      .text {
+        font-size: 26rpx;
+        color: $n-60;
+      }
     }
   }
-}
 </style>

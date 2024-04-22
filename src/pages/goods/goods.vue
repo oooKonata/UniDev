@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { GoodsResult } from '@/types/goods'
-import { getGoodsByIdAPI } from '@/api/goods'
-import { onLoad } from '@dcloudio/uni-app'
+  import { ref } from 'vue'
+  import type { GoodsResult } from '@/types/goods'
+  import { getGoodsByIdAPI } from '@/api/goods'
+  import { onLoad } from '@dcloudio/uni-app'
 
-const { safeAreaInsets } = uni.getSystemInfoSync()
+  const { safeAreaInsets } = uni.getSystemInfoSync()
 
-const query = defineProps<{ id: string }>()
+  const query = defineProps<{ id: string }>()
 
-const goods = ref<GoodsResult>()
-const getGoodsByIdData = async () => {
-	const res = await getGoodsByIdAPI(query.id)
-	goods.value = res.result
-	console.log(goods.value)
-}
+  const goods = ref<GoodsResult>()
+  const getGoodsByIdData = async () => {
+    const res = await getGoodsByIdAPI(query.id)
+    goods.value = res.result
+    console.log(goods.value)
+  }
 
-onLoad(() => {
-	getGoodsByIdData()
-})
+  onLoad(() => {
+    getGoodsByIdData()
+  })
 </script>
 
 <template>
@@ -137,241 +137,241 @@ onLoad(() => {
 </template>
 
 <style scoped lang="scss">
-.page {
-  display: flex;
-  flex-direction: column;
-  .goods {
-    .preview {
-      height: 750rpx;
-      position: relative;
-      .swiper {
-        height: 100%;
-        .image {
-          width: 100%;
+  .page {
+    display: flex;
+    flex-direction: column;
+    .goods {
+      .preview {
+        height: 750rpx;
+        position: relative;
+        .swiper {
           height: 100%;
+          .image {
+            width: 100%;
+            height: 100%;
+          }
         }
-      }
-      .indicator {
-        height: 40rpx;
-        padding: 0 24rpx;
-        line-height: 36rpx;
-        border-radius: 20rpx;
-        color: #fff;
-        background-color: rgba(0, 0, 0, 0.3);
-        position: absolute;
-        bottom: 24rpx;
-        right: 24rpx;
-        .current {
-          font-size: 26rpx;
-        }
-        .split {
-          font-size: 24rpx;
-          margin: 0 1rpx 0 2rpx;
-        }
-        .total {
-          font-size: 24rpx;
+        .indicator {
+          height: 40rpx;
+          padding: 0 24rpx;
+          line-height: 36rpx;
+          border-radius: 20rpx;
+          color: #fff;
+          background-color: rgba(0, 0, 0, 0.3);
+          position: absolute;
+          bottom: 24rpx;
+          right: 24rpx;
+          .current {
+            font-size: 26rpx;
+          }
+          .split {
+            font-size: 24rpx;
+            margin: 0 1rpx 0 2rpx;
+          }
+          .total {
+            font-size: 24rpx;
+          }
         }
       }
     }
-  }
-  .meta {
-    border-bottom: 1rpx solid $n-10;
-    background-color: #fff;
-    .price {
-      font-size: 32rpx;
-      background-color: $n-theme;
-      color: #fff;
-      padding: 24rpx;
-      .amount {
-        font-size: 48rpx;
-      }
-    }
-    .title {
-      padding: 24rpx;
-
-      .name {
-        font-size: 32rpx;
-        color: $n-80;
-      }
-      .desc {
-        font-size: 24rpx;
-        margin-top: 4rpx;
-        color: #cf4444;
-      }
-    }
-  }
-  .action {
-    padding-left: 20rpx;
-    background-color: #fff;
-    .item {
-      height: 88rpx;
+    .meta {
       border-bottom: 1rpx solid $n-10;
-      display: flex;
-      justify-content: right;
-      align-items: center;
-      color: $n-80;
-      font-size: 26rpx;
-      &:nth-last-child(1) {
-        border-bottom: 0;
-      }
-      .label {
-        flex: 1;
-        color: $n-40;
-      }
-      .text {
-        max-width: 540rpx;
-        text-align: right;
-        margin-right: 8rpx;
-      }
-    }
-    .arrow {
-      &::after {
-        content: '\e6c2';
-        font-family: 'erabbit' !important;
-        color: $n-40;
-        font-size: 24rpx;
-        margin-right: 24rpx;
-      }
-    }
-  }
-  .detail {
-    margin-top: 16rpx;
-    background-color: #fff;
-    .title {
-      display: flex;
-      align-items: center;
-      height: 88rpx;
-      padding-left: 24rpx;
-      position: relative;
-      text {
-        margin-left: 16rpx;
-        font-size: 28rpx;
-        color: $n-80;
-        font-weight: 600;
-      }
-      &::before {
-        content: '';
-        position: absolute;
-        left: 24rpx;
-        width: 4rpx;
-        height: 28rpx;
-        border-radius: 6rpx;
+      background-color: #fff;
+      .price {
+        font-size: 32rpx;
         background-color: $n-theme;
+        color: #fff;
+        padding: 24rpx;
+        .amount {
+          font-size: 48rpx;
+        }
+      }
+      .title {
+        padding: 24rpx;
+
+        .name {
+          font-size: 32rpx;
+          color: $n-80;
+        }
+        .desc {
+          font-size: 24rpx;
+          margin-top: 4rpx;
+          color: #cf4444;
+        }
       }
     }
-    .content {
-      padding: 0 24rpx;
-      .properties {
-        width: 100%;
-      }
+    .action {
+      padding-left: 20rpx;
+      background-color: #fff;
       .item {
-        // height: 88rpx;
-        padding: 28rpx 0;
-        border-top: 1rpx solid $n-10;
+        height: 88rpx;
+        border-bottom: 1rpx solid $n-10;
         display: flex;
-        justify-content: space-between;
+        justify-content: right;
         align-items: center;
         color: $n-80;
         font-size: 26rpx;
         &:nth-last-child(1) {
-          border-bottom: 1rpx solid $n-10;
+          border-bottom: 0;
         }
         .label {
           flex: 1;
           color: $n-40;
         }
-        .value {
-          width: 540rpx;
+        .text {
+          max-width: 540rpx;
           text-align: right;
+          margin-right: 8rpx;
         }
       }
-      .image-detail {
-        width: 100%;
+      .arrow {
+        &::after {
+          content: '\e6c2';
+          font-family: 'erabbit' !important;
+          color: $n-40;
+          font-size: 24rpx;
+          margin-right: 24rpx;
+        }
       }
     }
-    .card {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      .goods {
-        margin-bottom: 16rpx;
-        .image {
-          width: 339rpx;
-          height: 339rpx;
-          border-radius: 16rpx;
-        }
-        .name {
-          max-width: 339rpx;
-          font-size: 26rpx;
-          padding-top: 16rpx;
-        }
-        .price {
-          padding-top: 6rpx;
-          color: #cf4444;
+    .detail {
+      margin-top: 16rpx;
+      background-color: #fff;
+      .title {
+        display: flex;
+        align-items: center;
+        height: 88rpx;
+        padding-left: 24rpx;
+        position: relative;
+        text {
+          margin-left: 16rpx;
           font-size: 28rpx;
-          .symbol {
-            font-size: 22rpx;
+          color: $n-80;
+          font-weight: 600;
+        }
+        &::before {
+          content: '';
+          position: absolute;
+          left: 24rpx;
+          width: 4rpx;
+          height: 28rpx;
+          border-radius: 6rpx;
+          background-color: $n-theme;
+        }
+      }
+      .content {
+        padding: 0 24rpx;
+        .properties {
+          width: 100%;
+        }
+        .item {
+          // height: 88rpx;
+          padding: 28rpx 0;
+          border-top: 1rpx solid $n-10;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          color: $n-80;
+          font-size: 26rpx;
+          &:nth-last-child(1) {
+            border-bottom: 1rpx solid $n-10;
+          }
+          .label {
+            flex: 1;
+            color: $n-40;
+          }
+          .value {
+            width: 540rpx;
+            text-align: right;
+          }
+        }
+        .image-detail {
+          width: 100%;
+        }
+      }
+      .card {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .goods {
+          margin-bottom: 16rpx;
+          .image {
+            width: 339rpx;
+            height: 339rpx;
+            border-radius: 16rpx;
+          }
+          .name {
+            max-width: 339rpx;
+            font-size: 26rpx;
+            padding-top: 16rpx;
+          }
+          .price {
+            padding-top: 6rpx;
+            color: #cf4444;
+            font-size: 28rpx;
+            .symbol {
+              font-size: 22rpx;
+            }
           }
         }
       }
     }
-  }
-  .toolbar {
-    position: fixed;
-    background-color: #fff;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9;
-    height: 100rpx;
-    padding-bottom: var(--window-bottom);
-    border-top: 1rpx solid $n-10;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    .icons {
+    .toolbar {
+      position: fixed;
+      background-color: #fff;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 9;
+      height: 100rpx;
+      padding-bottom: var(--window-bottom);
+      border-top: 1rpx solid $n-10;
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      margin-left: 8rpx;
-      & > view {
+      .icons {
         display: flex;
-        flex-direction: column;
         align-items: center;
-        align-items: center;
-        width: 96rpx;
-        .icon-heart,
-        .icon-handset,
-        .icon-cart {
-          font-size: 40rpx;
-          color: $n-80;
+        margin-left: 8rpx;
+        & > view {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          align-items: center;
+          width: 96rpx;
+          .icon-heart,
+          .icon-handset,
+          .icon-cart {
+            font-size: 40rpx;
+            color: $n-80;
+          }
+          .name {
+            font-size: 22rpx;
+            color: $n-60;
+          }
         }
-        .name {
-          font-size: 22rpx;
-          color: $n-60;
+      }
+      .buttons {
+        display: flex;
+        align-items: center;
+        font-size: 28rpx;
+        & > view {
+          height: 72rpx;
+          padding: 0 32rpx;
+          display: flex;
+          align-items: center;
+          border-radius: 40rpx;
+          color: #fff;
+        }
+        .addcart {
+          background-color: #ffa868;
+          margin-right: 12rpx;
+        }
+        .buynow {
+          background-color: $n-theme;
+          margin-right: 24rpx;
         }
       }
     }
-    .buttons {
-      display: flex;
-      align-items: center;
-      font-size: 28rpx;
-      & > view {
-        height: 72rpx;
-        padding: 0 32rpx;
-        display: flex;
-        align-items: center;
-        border-radius: 40rpx;
-        color: #fff;
-      }
-      .addcart {
-        background-color: #ffa868;
-        margin-right: 12rpx;
-      }
-      .buynow {
-        background-color: $n-theme;
-        margin-right: 24rpx;
-      }
-    }
   }
-}
 </style>
