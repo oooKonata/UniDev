@@ -10,13 +10,13 @@ const query = defineProps<{ id: string }>()
 
 const goods = ref<GoodsResult>()
 const getGoodsByIdData = async () => {
-  const res = await getGoodsByIdAPI(query.id)
-  goods.value = res.result
-  console.log(goods.value)
+	const res = await getGoodsByIdAPI(query.id)
+	goods.value = res.result
+	console.log(goods.value)
 }
 
 onLoad(() => {
-  getGoodsByIdData()
+	getGoodsByIdData()
 })
 </script>
 
