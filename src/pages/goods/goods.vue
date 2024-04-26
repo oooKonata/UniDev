@@ -12,12 +12,23 @@
   const getGoodsByIdData = async () => {
     const res = await getGoodsByIdAPI(query.id)
     goods.value = res.result
-    console.log(goods.value)
   }
 
   onLoad(() => {
     getGoodsByIdData()
   })
+
+  const currentIndex = ref(0)
+  const handleChange: UniHelper.SwiperOnChange = e => {
+    currentIndex.value = e.detail.current
+  }
+
+  const handleClick = (url: string) => {
+    uni.previewImage({
+      current: url,
+      urls: goods.value!.mainPictures,
+    })
+  }
 </script>
 
 <template>
@@ -26,16 +37,16 @@
     <view class="goods">
       <!-- 商品主图 -->
       <view class="preview">
-        <swiper class="swiper" autoplay circular>
+        <swiper class="swiper" @change="handleChange" autoplay circular>
           <swiper-item v-for="item in goods?.mainPictures" :key="item">
-            <image class="image" :src="item" mode="aspectFill" />
+            <image class="image" @click="handleClick(item)" :src="item" mode="aspectFill" />
           </swiper-item>
         </swiper>
         <!-- 主图顺序 -->
         <view class="indicator">
-          <text class="current">1</text>
+          <text class="current">{{ currentIndex + 1 }}</text>
           <text class="split">/</text>
-          <text class="total">5</text>
+          <text class="total">{{ goods?.mainPictures.length }}</text>
         </view>
       </view>
     </view>
@@ -134,6 +145,12 @@
       </view>
     </view>
   </view>
+
+  <!-- 弹出层 -->
+  <uni-popup ref="popup" type="top">
+    <view>content here!</view>
+    <button>关闭弹框</button>
+  </uni-popup>
 </template>
 
 <style scoped lang="scss">
